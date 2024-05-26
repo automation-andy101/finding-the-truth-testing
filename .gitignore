@@ -1,0 +1,19 @@
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Test results
+pytest_cache/
+.coverage
+htmlcov/
+
+# Miscellaneous
+.DS_Store
