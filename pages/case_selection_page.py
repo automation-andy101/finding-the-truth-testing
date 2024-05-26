@@ -1,7 +1,6 @@
 import logging
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -15,9 +14,14 @@ class CaseSelectionPage:
     def get_intro_text(self) -> str:
         return self.driver.find_element(*self.intro_text_locator).text
 
-    def is_intro_text_displayed(self) -> bool:
-        return self.driver.find_element(*self.intro_text_locator).is_displayed()
 
     def assert_intro_text_visible(self):
-        assert self.is_intro_text_displayed(), "Intro text is not visible on the page"
+        try:
+            # Wait for intro text to be visible
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located(self.intro_text_locator)
+            )
+            logging.info("Case selection page intro text is visible.")
+        except TimeoutException:
+            raise AssertionError("Intro text is not visible on the page.")
 

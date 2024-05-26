@@ -17,3 +17,6 @@ htmlcov/
 
 # Miscellaneous
 .DS_Store
+
+# Allure Reports
+allure-reports/

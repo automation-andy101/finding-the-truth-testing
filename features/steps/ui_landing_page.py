@@ -1,7 +1,4 @@
 from behave import given, when, then
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
 from pages.landing_page import LandingPage
 from pages.case_selection_page import CaseSelectionPage
 import time
@@ -9,7 +6,6 @@ time.sleep(5)
 
 @given('I navigate to the Finding The Truth application')
 def step_navigate_to_application(context):
-    context.driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
     context.driver.maximize_window()
     landing_page = LandingPage(context.driver)
     landing_page.open()
