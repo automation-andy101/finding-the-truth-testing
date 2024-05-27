@@ -19,7 +19,7 @@ htmlcov/
 .DS_Store
 
 # Allure Reports
-allure-reports/
+allure-results/
 
 
 
