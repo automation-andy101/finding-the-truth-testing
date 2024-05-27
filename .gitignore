@@ -22,6 +22,6 @@ htmlcov/
 allure-reports/
 
 # API credentials
-ultities/api_properties.ini
+ultities/*
 
 
