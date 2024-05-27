@@ -8,7 +8,7 @@ class CaseSelectionPage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.header_text = (By.CLASS_NAME, 'projectTitle')
+        self.header_text = (By.CSS_SELECTOR, '[data-role="page.name"] > strong')
         self.intro_text_locator = (By.CSS_SELECTOR, '[data-role="page.intro__text"]')
         self.case_selection_area = (By.CLASS_NAME, 'mod__body')
         self.case_selector = (By.CLASS_NAME, 'imageCard')
@@ -16,13 +16,14 @@ class CaseSelectionPage:
         self.score = (By.XPATH, '//*[contains(text(), "Your score so far:")]')
 
 
-    def assert_header_text(self, expected_text: str):
+    def assert_case_selection_page_header_text(self, expected_text: str):
         # Wait until the header element is visible on the page
         header_element = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.header_text)
         )
         # Get the text from the header element
         actual_text = header_element.text
+        print("ANDY - ", actual_text)
         assert expected_text == actual_text, f'Header text assertion failed: Expected text "{expected_text}" but got "{actual_text}"'
 
 
@@ -69,9 +70,9 @@ class CaseSelectionPage:
         actual_score = full_text[18:len(full_text)]
         print(actual_score)
 
-        assert actual_score == expected_score, f"Expected score to be {expected_score} but displayed score is {actual_score}."
+        assert actual_score == expected_score, f"Expected score to be {expected_score}, but score displayed on page is {actual_score}."
 
-    def click_case_one_selector(self):
+    def click_case_selector(self, number):
         # Wait until the case selection area becomes visible
         WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(self.case_selection_area)
@@ -81,7 +82,9 @@ class CaseSelectionPage:
         # Check if there are any elements found
         if case_selectors:
             # Click on the first occurrence of the element
-            case_selectors[0].click()
+            case_selectors[number - 1].click()
+            import time
+            time.sleep(5)
         else:
             print("No cases found!!")
 

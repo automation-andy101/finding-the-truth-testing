@@ -8,7 +8,8 @@ class LandingPage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.header_text = (By.CLASS_NAME, 'projectTitle')
+        # self.header_text = (By.CLASS_NAME, 'projectTitle')
+        self.header_text = (By.CSS_SELECTOR, '[data-role="project.name"]')
         self.image = (By.CLASS_NAME, 'image')
         self.paragraph_text_area = (By.CLASS_NAME, 'htmlText')
         self.first_paragraph_text = (By.XPATH, "//div[@class='htmlText']//p[1]")
@@ -28,13 +29,14 @@ class LandingPage:
             print(f"An error occurred while trying to click the start button: {e}")
 
 
-    def assert_header_text(self, expected_text: str):
+    def assert_landing_page_header_text(self, expected_text: str):
         # Wait until the header element is visible on the page
         header_element = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.header_text)
         )
         # Get the text from the header element
         actual_text = header_element.text
+        print("ACTUAL TEXT IS - ", actual_text)
         assert expected_text == actual_text, f'Header text assertion failed: Expected text "{expected_text}" but got "{actual_text}"'
 
 

@@ -12,11 +12,13 @@ Feature: Case selection
         And my score is "0"
 
     Scenario: Selecting case one
-        When I click case one
+        When I click case 1
         Then I am navigated to a page containing a video titled "Crime Myths - Case 1, Part 1"
+        And description text above case 1 video contains "murder has been committed"
 
     Scenario: Selecting case two
-        When I click case two
+        When I click case 2
         Then I am navigated to a page containing a video titled "Crime Myths - Case 2, Part 1"
+        And description text above case 2 video contains "young man has been in an accident"
 
 

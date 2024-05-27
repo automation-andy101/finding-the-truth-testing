@@ -12,6 +12,7 @@ To install and run this project locally, follow these steps:
 2. Navigate to the project directory: `cd finding-the-truth-testin`
 3. Install dependencies: `pip install -r requirements.txt`
 4. Run tests: `behave`
+5. generate Allure reports: `allure serve allure-results`
 
 ## Configuration
 
