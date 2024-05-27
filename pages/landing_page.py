@@ -5,7 +5,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class LandingPage:
-    URL = 'https://learning.elucidat.com/course/5c9126fd760e5-611a53751213a'
 
     def __init__(self, driver):
         self.driver = driver
@@ -15,9 +14,6 @@ class LandingPage:
         self.first_paragraph_text = (By.XPATH, "//div[@class='htmlText']//p[1]")
         self.second_paragraph_text = (By.XPATH, "//div[@class='htmlText']//p[2]")
         self.start_btn = (By.CLASS_NAME, 'ti-chevron-right')
-
-    def open(self):
-        self.driver.get(self.URL)
 
 
     def click_start_button(self):
@@ -52,6 +48,7 @@ class LandingPage:
         except TimeoutException:
             raise AssertionError("Image is not visible on the page.")
 
+
     def assert_first_paragraph_contains_expected_text(self, expected_text):
         try:
             # Wait for the paragraph to be visible
@@ -67,6 +64,7 @@ class LandingPage:
             logging.error("Timed out waiting for the first paragraph to be visible.")
         except AssertionError as e:
             logging.error(str(e))
+
 
     def assert_second_paragraph_contains_expected_text(self, expected_text):
         try:

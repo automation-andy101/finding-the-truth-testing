@@ -1,14 +1,6 @@
 from behave import given, when, then
 from pages.landing_page import LandingPage
 from pages.case_selection_page import CaseSelectionPage
-import time
-time.sleep(5)
-
-@given('I navigate to the Finding The Truth application')
-def step_navigate_to_application(context):
-    context.driver.maximize_window()
-    landing_page = LandingPage(context.driver)
-    landing_page.open()
 
 @when('I click the START button')
 def step_click_start_button(context):
