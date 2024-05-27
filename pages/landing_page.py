@@ -26,7 +26,7 @@ class LandingPage:
             # Click the start button
             start_button.click()
         except Exception as e:
-            raise AssertionError(f"MAJOR BUG: Start button was not able to be clicked.")
+            raise AssertionError(f"MAJOR BUG: Start button not present on page.")
 
     def assert_landing_page_header_text(self, expected_text: str):
         # Wait until the header element is visible on the page

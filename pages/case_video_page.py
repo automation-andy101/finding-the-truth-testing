@@ -11,6 +11,7 @@ class CaseVideoPage:
         self.video_title = (By.CSS_SELECTOR, '[data-track-click="video-title"] > span')
         self.video_iframe = (By.TAG_NAME, 'iframe')
         self.case_one_video_title = (By.XPATH, '//a/*[contains(text(), "Crime Myths - Case 1, Part 1")]')
+        self.judge_this_button = (By.CLASS_NAME, 'button--nav')
 
     def assert_case_video_title(self, expected_video_title: str):
         # Switch to the iframe containing the Vimeo video
@@ -56,3 +57,16 @@ class CaseVideoPage:
 
         assert actual_text in expected_description_text, (f"MAJOR BUG: Incorrect video description text is being displayed "
                                                           f"on the page")
+
+    def click_judge_this_button(self):
+        try:
+            # Wait for the judge this button to be clickable
+            judge_this_button = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable(self.judge_this_button)
+            )
+            # Click the start button
+            judge_this_button.click()
+        except Exception as e:
+            raise AssertionError(f"MAJOR BUG: JUDGE THIS button not present on page.")
+
+

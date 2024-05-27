@@ -61,10 +61,9 @@ class CaseSelectionPage:
             EC.presence_of_element_located(self.score)
         )
         full_text = score_element.text
-        print(full_text)
+
         # Extract the desired part of the text using slicing
         actual_score = full_text[18:len(full_text)]
-        print(actual_score)
 
         assert actual_score == expected_score, (f"MAJOR BUG: Incorrect Score! Expected score to be {expected_score}, but "
                                                 f"score displayed on page is {actual_score}.")

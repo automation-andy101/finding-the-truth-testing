@@ -1,4 +1,4 @@
-Feature: Case selection
+Feature: [UI TEST] Case selection
 
     As a Finding the Truth user I want to be able to access the case selection page
     so that I can choose from a selection of cases to watch

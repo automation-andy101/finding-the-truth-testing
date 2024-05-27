@@ -1,4 +1,4 @@
-Feature: Accessing the Finding the Truth application Landing Page
+Feature: [UI TEST] Accessing the Finding the Truth application Landing Page
 
     As a Finding the Truth application user I want to open a browser and navigate to the application's landing page
     so that I can obtain information about the application and initiate a game by clicking the start button

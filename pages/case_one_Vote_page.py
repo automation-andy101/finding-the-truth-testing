@@ -2,71 +2,40 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-class CaseVideoPage:
+
+class CaseOneVotePage:
 
     def __init__(self, driver):
         self.driver = driver
-        self.case_one_video_description_text = (By.XPATH, '//p/strong')
-        self.case_two_video_description_text = (By.XPATH, '//p/strong[2]')
-        self.video_title = (By.CSS_SELECTOR, '[data-track-click="video-title"] > span')
-        self.video_iframe = (By.TAG_NAME, 'iframe')
-        self.case_one_video_title = (By.XPATH, '//a/*[contains(text(), "Crime Myths - Case 1, Part 1")]')
-        self.judge_this_button = (By.CLASS_NAME, 'button--nav')
+        self.radio_button_selector = (By.CLASS_NAME, 'textCard')
+        self.guilty_radio_button = (By.CSS_SELECTOR, '.question__body > div:nth-child(1)')
+        self.vote_button = (By.CLASS_NAME, 'save_button')
+        self.modal_continue_button = (By.CSS_SELECTOR, '[data-dismiss="modal"]')
+        self.modal_header_text = (By.CSS_SELECTOR, '.modal__header > div > div > div > h2 > strong')
 
-    def assert_case_video_title(self, expected_video_title: str):
-        # Switch to the iframe containing the Vimeo video
-        iframe = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(self.video_iframe))
-        self.driver.switch_to.frame(iframe)
-
-        # Now you can search for elements within the iframe
-        element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.video_title)
+    def click_guilty_radio_button(self):
+        # Wait until the radio buttons becomes visible
+        radio_button_selectors = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(self.guilty_radio_button)
         )
-        actual_text = element.text
+        radio_button_selectors.click()
 
-        # Assert that actual video title matches what was expected
-        assert expected_video_title == actual_text, (f"CRITICAL BUG: Incorrect video is being displayed on the page. "
-                                                     f"Expected video with title '{expected_video_title}', "
-                                                     f"but got '{actual_text}'")
-
-    def assert_case_one_description_text_above_video(self, expected_description_text: str):
-        # Switch back to the default content
-        self.driver.switch_to.default_content()
-
-        description_text_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.case_one_video_description_text)
+    def click_vote_button(self):
+        # Wait until the vote button becomes visible
+        vote_button_selectors = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(self.vote_button)
         )
+        vote_button_selectors.click()
 
-        # Get the text of the first paragraph
-        actual_text = description_text_element.text
-
-        assert expected_description_text == actual_text, (f"MAJOR BUG: Incorrect video description text is being displayed "
-                                                          f"on the page. Expected description t"
-                                                          f"o contain '{expected_description_text}', "
-                                                          f"but got '{actual_text}'")
-
-    def assert_case_two_description_text_above_video(self, expected_description_text: str):
-        # Switch back to the default content
-        self.driver.switch_to.default_content()
-
-        description_text_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.case_two_video_description_text)
+    def assert_guilty_modal_header_text(self, expected_text):
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(self.modal_header_text)
         )
+        elements = self.driver.find_elements(*self.modal_header_text)
 
-        actual_text = description_text_element.text
-
-        assert actual_text in expected_description_text, (f"MAJOR BUG: Incorrect video description text is being displayed "
-                                                          f"on the page")
-
-    def click_judge_this_button(self):
-        try:
-            # Wait for the judge this button to be clickable
-            judge_this_button = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable(self.judge_this_button)
-            )
-            # Click the start button
-            judge_this_button.click()
-        except Exception as e:
-            raise AssertionError(f"MAJOR BUG: JUDGE THIS button not present on page.")
-
-
+        # Get text for first occurrence of modal header
+        if elements:
+            actual_text = elements[1].text
+            assert actual_text == expected_text, f"MAJOR BUG: Popup modal is incorrectly displaying {actual_text}, when {expected_text} was selected"
+        else:
+            print("No elements found with data-dismiss='modal'")

@@ -14,3 +14,4 @@ def step_navigate_to_case_selection(context):
     landing_page = LandingPage(context.driver)
     landing_page.click_start_button()
 
+

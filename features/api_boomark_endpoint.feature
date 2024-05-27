@@ -1,5 +1,5 @@
 @exclude_before_all
-Feature: Finding The Truth Bookmark Endpoint Testing
+Feature: [API TEST] Finding The Truth Bookmark Endpoint Testing
 
     As a user of the Finding The Truth bookmark service,
     I want to ensure that the bookmark endpoint functions correctly,
