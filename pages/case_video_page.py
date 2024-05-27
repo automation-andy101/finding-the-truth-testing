@@ -24,7 +24,7 @@ class CaseVideoPage:
         actual_text = element.text
 
         # Assert that actual video title matches what was expected
-        assert expected_video_title == actual_text, (f"CRITICAL: Incorrect video is being displayed on the page. "
+        assert expected_video_title == actual_text, (f"CRITICAL BUG: Incorrect video is being displayed on the page. "
                                                      f"Expected video with title '{expected_video_title}', "
                                                      f"but got '{actual_text}'")
 
@@ -39,7 +39,7 @@ class CaseVideoPage:
         # Get the text of the first paragraph
         actual_text = description_text_element.text
 
-        assert expected_description_text == actual_text, (f"MAJOR: Incorrect video description text is being displayed "
+        assert expected_description_text == actual_text, (f"MAJOR BUG: Incorrect video description text is being displayed "
                                                           f"on the page. Expected description t"
                                                           f"o contain '{expected_description_text}', "
                                                           f"but got '{actual_text}'")
@@ -54,5 +54,5 @@ class CaseVideoPage:
 
         actual_text = description_text_element.text
 
-        assert actual_text in expected_description_text, (f"MAJOR: Incorrect video description text is being displayed "
+        assert actual_text in expected_description_text, (f"MAJOR BUG: Incorrect video description text is being displayed "
                                                           f"on the page")

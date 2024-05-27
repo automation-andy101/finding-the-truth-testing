@@ -23,7 +23,7 @@ class CaseSelectionPage:
         )
         # Get the text from the header element
         actual_text = header_element.text
-        assert expected_text == actual_text, (f'MINOR: Header text assertion failed: Expected text "{expected_text}", '
+        assert expected_text == actual_text, (f'MINOR BUG: Header text assertion failed: Expected text "{expected_text}", '
                                               f'but got "{actual_text}"')
 
     def get_intro_text(self) -> str:
@@ -41,7 +41,7 @@ class CaseSelectionPage:
             )
             logging.info("Case selection page intro text is visible.")
         except TimeoutException:
-            raise AssertionError("MINOR: Intro text is not visible on the page.")
+            raise AssertionError("MINOR BUG: Intro text is not visible on the page.")
 
     def assert_case_selection_count(self, expected_count: int):
         # Wait until the case selection area becomes visible
@@ -54,7 +54,7 @@ class CaseSelectionPage:
 
         # Count the number of elements
         actual_count = len(case_selectors)
-        assert actual_count == expected_count, f"MAJOR: Expected {expected_count} selectable cases, but found {actual_count}."
+        assert actual_count == expected_count, f"MAJOR BUG: Expected {expected_count} selectable cases, but found {actual_count}."
 
     def assert_score(self, expected_score: str):
         score_element = WebDriverWait(self.driver, 10).until(
@@ -66,7 +66,7 @@ class CaseSelectionPage:
         actual_score = full_text[18:len(full_text)]
         print(actual_score)
 
-        assert actual_score == expected_score, (f"MAJOR: Incorrect Score! Expected score to be {expected_score}, but "
+        assert actual_score == expected_score, (f"MAJOR BUG: Incorrect Score! Expected score to be {expected_score}, but "
                                                 f"score displayed on page is {actual_score}.")
 
     def click_case_selector(self, number):

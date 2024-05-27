@@ -26,7 +26,7 @@ class LandingPage:
             # Click the start button
             start_button.click()
         except Exception as e:
-            raise AssertionError(f"MAJOR: Start button was not able to be clicked.")
+            raise AssertionError(f"MAJOR BUG: Start button was not able to be clicked.")
 
     def assert_landing_page_header_text(self, expected_text: str):
         # Wait until the header element is visible on the page
@@ -35,7 +35,7 @@ class LandingPage:
         )
         # Get the text from the header element
         actual_text = header_element.text
-        assert expected_text == actual_text, (f'MINOR: Header text assertion failed: Expected text "{expected_text}" '
+        assert expected_text == actual_text, (f'MINOR BUG: Header text assertion failed: Expected text "{expected_text}" '
                                               f'but got "{actual_text}"')
 
     def assert_image_element_is_visible(self):
@@ -45,7 +45,7 @@ class LandingPage:
                 EC.visibility_of_element_located(self.image)
             )
         except TimeoutException:
-            raise AssertionError(f"MINOR: Image is not visible on the page.")
+            raise AssertionError(f"MINOR BUG: Image is not visible on the page.")
 
     def assert_first_paragraph_contains_expected_text(self, expected_text):
         # Wait for the paragraph to be visible
@@ -55,7 +55,7 @@ class LandingPage:
         actual_text = self.driver.find_element(*self.first_paragraph_text).text
 
         # Assert whether the expected text is contained in the actual text
-        assert expected_text in actual_text, (f"MINOR: Expected text '{expected_text}' not found in the first "
+        assert expected_text in actual_text, (f"MINOR BUG: Expected text '{expected_text}' not found in the first "
                                               f"paragraph. Actual text: '{actual_text}'")
 
     def assert_second_paragraph_contains_expected_text(self, expected_text):
@@ -66,7 +66,7 @@ class LandingPage:
         actual_text = self.driver.find_element(*self.second_paragraph_text).text
 
         # Assert whether the expected text is contained in the actual text
-        assert expected_text in actual_text, (f"MINOR: Expected text '{expected_text}' not found in the second "
+        assert expected_text in actual_text, (f"MINOR BUG: Expected text '{expected_text}' not found in the second "
                                               f"paragraph. Actual text: '{actual_text}'")
 
     def assert_start_button_is_visible(self):
@@ -77,4 +77,4 @@ class LandingPage:
             )
 
         except TimeoutException:
-            raise AssertionError("CRITICAL: START button is not visible on the page.")
+            raise AssertionError("CRITICAL BUG: START button is not visible on the page.")

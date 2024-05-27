@@ -1,9 +1,0 @@
-{
-  "version": "1",
-  "name": "Elucidat - finding the truth app",
-  "type": "collection",
-  "ignore": [
-    "node_modules",
-    ".git"
-  ]
-}

@@ -21,7 +21,6 @@ htmlcov/
 # Allure Reports
 allure-reports/
 
-# API properties
-ultities/api_properties.ini
+
 
 
