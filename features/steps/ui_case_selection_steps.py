@@ -1,6 +1,7 @@
 from behave import given, when, then
 from pages.landing_page import LandingPage
 from pages.case_selection_page import CaseSelectionPage
+from pages.case_video_page import CaseVideoPage
 
 @then('case selection page header text is "{expected_text}"')
 def step_assert_header_text(context, expected_text):
@@ -12,29 +13,26 @@ def step_assert_selectable_cases(context, number):
     case_selection_page = CaseSelectionPage(context.driver)
     case_selection_page.assert_case_selection_count(number)
 
-@then('my score is {number:d}')
-def step_assert_image_visible(context, number):
+@then('my score is "{expected_score}"')
+def step_assert_expected_score(context, expected_score):
     case_selection_page = CaseSelectionPage(context.driver)
-    case_selection_page.assert_score(number)
+    case_selection_page.assert_score(expected_score)
 
-@then('first paragraph text is "{expected_text}"')
-def step_assert_first_paragraph_text(context, expected_text):
-    landing_page = LandingPage(context.driver)
-    landing_page.assert_first_paragraph_contains_expected_text(expected_text)
-
-@then('second paragraph text is "{expected_text}"')
-def step_assert_second_paragraph_text(context, expected_text):
-    landing_page = LandingPage(context.driver)
-    landing_page.assert_second_paragraph_contains_expected_text(expected_text)
-
-@then('START button is visible')
-def step_assert_start_button_visible(context):
-    landing_page = LandingPage(context.driver)
-    landing_page.assert_start_button_is_visible()
-
-@then('I am navigated to the case selection page')
-def step_verify_navigation_to_case_selection(context):
+@when('I click case one')
+def step_click_case_one(context):
     case_selection_page = CaseSelectionPage(context.driver)
-    case_selection_page.assert_intro_text_visible()
+    case_selection_page.click_case_one_selector()
+
+@when('I click case two')
+def step_click_case_two(context):
+    case_selection_page = CaseSelectionPage(context.driver)
+    case_selection_page.click_case_two_selector()
+
+@then('I am navigated to a page containing a video titled "{expected_video_title}"')
+def step_assert_case_one_video_title(context, expected_video_title):
+    case_video_page = CaseVideoPage(context.driver)
+    # case_video_page.assert_case_one_video_title(expected_video_title)
+    case_video_page.assert_case_video_title(expected_video_title)
+
 
 

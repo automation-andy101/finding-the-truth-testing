@@ -5,14 +5,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 class CaseSelectionPage:
-    URL = 'https://learning.elucidat.com/course/5c9126fd760e5-611a53751213a'
 
     def __init__(self, driver):
         self.driver = driver
+        self.header_text = (By.CLASS_NAME, 'projectTitle')
         self.intro_text_locator = (By.CSS_SELECTOR, '[data-role="page.intro__text"]')
-        self.case_selection_area = (By.CLASS_NAME, 'mod__bodycase_select')
-        self.case = (By.CLASS_NAME, 'card')
+        self.case_selection_area = (By.CLASS_NAME, 'mod__body')
+        self.case_selector = (By.CLASS_NAME, 'imageCard')
+        self.case_one_selector = (By.XPATH, '//*[contains(text(), "Making a case against Kevin")]')
         self.score = (By.XPATH, '//*[contains(text(), "Your score so far:")]')
+
 
     def assert_header_text(self, expected_text: str):
         # Wait until the header element is visible on the page
@@ -25,7 +27,11 @@ class CaseSelectionPage:
 
 
     def get_intro_text(self) -> str:
-        return self.driver.find_element(*self.intro_text_locator).text
+        # Wait for intro text to be visible
+        intro_text = WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(*self.intro_text_locator)
+        )
+        return intro_text.text
 
 
     def assert_intro_text_visible(self):
@@ -38,30 +44,62 @@ class CaseSelectionPage:
         except TimeoutException:
             raise AssertionError("Intro text is not visible on the page.")
 
+
     def assert_case_selection_count(self, expected_count: int):
-        # Locate the parent element
-        parent_element = self.driver.find_element(self.case_selection_area)
+        # Wait until the case selection area becomes visible
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(self.case_selection_area)
+        )
 
-        # Locate the child elements within the parent element
-        child_elements = parent_element.find_elements(self.case)
+        # Find number of case selectors cards on page
+        case_selectors = self.driver.find_elements(*self.case_selector)
 
-        # Get the actual count of child elements
-        actual_count = len(child_elements)
+        # Count the number of elements
+        actual_count = len(case_selectors)
+        assert actual_count == expected_count, f"Expected {expected_count} selectable cases, but found {actual_count}."
 
-        # Perform the assertion
-        assert actual_count == expected_count, f"Expected {expected_count} child elements, but found {actual_count}."
 
-        print(f"Assertion passed: Found {actual_count} child elements, as expected.")
-
-    def assert_score(self, expected_count: int):
-        element = WebDriverWait(self.driver, 10).until(
+    def assert_score(self, expected_score: str):
+        score_element = WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(self.score)
         )
-        full_text = element.text
+        full_text = score_element.text
+        print(full_text)
         # Extract the desired part of the text using slicing
-        partial_text = full_text[18:len(full_text)]
+        actual_score = full_text[18:len(full_text)]
+        print(actual_score)
 
-        print((partial_text))
-        integer_number = int(partial_text)
+        assert actual_score == expected_score, f"Expected score to be {expected_score} but displayed score is {actual_score}."
 
-        assert  integer_number == expected_count, f"Expected {expected_count} cases but found {integer_number}."
+    def click_case_one_selector(self):
+        # Wait until the case selection area becomes visible
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(self.case_selection_area)
+        )
+        case_selectors = self.driver.find_elements(*self.case_selector)
+
+        # Check if there are any elements found
+        if case_selectors:
+            # Click on the first occurrence of the element
+            case_selectors[0].click()
+        else:
+            print("No cases found!!")
+
+    def click_case_two_selector(self):
+        # Wait until the case selection area becomes visible
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located(self.case_selection_area)
+        )
+        case_selectors = self.driver.find_elements(*self.case_selector)
+
+        # Check if there are any elements found
+        if case_selectors:
+            # Click on the second occurrence of the element
+            case_selectors[1].click()
+            import time
+            time.sleep(5)
+        else:
+            print("No cases found!!")
+
+
+

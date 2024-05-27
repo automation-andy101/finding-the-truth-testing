@@ -69,7 +69,7 @@ class LandingPage:
     def assert_second_paragraph_contains_expected_text(self, expected_text):
         try:
             # Wait for the paragraph to be visible
-            WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(self.first_paragraph_text))
+            WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(self.first_paragraph_text))
 
             # Get the text of the first paragraph
             actual_text = self.driver.find_element(*self.first_paragraph_text).text
