@@ -12,7 +12,8 @@ To install and run this project locally, follow these steps:
 2. Navigate to the project directory: `cd finding-the-truth-testin`
 3. Install dependencies: `pip install -r requirements.txt`
 4. Run tests: `behave`
-5. Generate Allure reports: `allure serve allure-results`. Note:- Allure reporting tool must be installed on your machine to generate Allure reports (instructions how to install are in a section below). Reports are outputted the `allure-results` project folder. 
+5. Generate Allure reports: `allure serve allure-results`. Reports are outputted to the `allure-results` project folder. 
+Note:- Allure reporting tool must be installed on your machine to generate Allure reports (instructions on how to install are in a section below). 
 
 ## Configuration
 
@@ -49,6 +50,8 @@ https://github.com/allure-framework/allure2/releases/tag/2.29.0
 Unzip and install when downloaded.
 
 Add Allure bin folder to the PATH environment variable to your machine.
+
+Note:- If you have your IDE (e.g. PyCharm) open you will have to close and re-open the IDE after installing the Allure reporting tool, for Allure Reporting to work.
 
 Install allure-behave into your Python project using the following command:-
 `pip install allure-behave`
