@@ -16,7 +16,7 @@ To install and run this project locally, follow these steps:
 
 ## Configuration
 
-Before running the project, make sure you have the following environment variables properly configured:
+Before running the project, make sure you have the following environment variables properly and packages configured:
 
 ### JAVA_HOME
 
@@ -60,7 +60,7 @@ Generate the HTML reports using the following command:-
 `allure serve allure-results`
 
 
-# **Install Python** ![Python](img/python_65.png)
+# **Install Python** ![Python]
 
 A Quick Guide for Installing Python on Common Operating Systems
 
@@ -69,7 +69,7 @@ A Quick Guide for Installing Python on Common Operating Systems
 3. [Install on Linux](#linux-)
 
 
-## **Windows** ![Windows](img/windows_65.png)
+## **Windows** ![Windows]
 1. If you have not yet installed Python on your Windows OS, then download and install the latest Python3 installer from [Python Downloads Page](https://www.python.org/downloads/)
    - Make sure to check the box during installation which adds Python to PATH. Labeled something like **Add Python 3.X to PATH**
 
@@ -84,7 +84,7 @@ A Quick Guide for Installing Python on Common Operating Systems
     - Now modify the PATH system variable by appending the text `;%PYTHON_HOME%\;%PYTHON_HOME%;%PYTHON_HOME%\Scripts\` to the end of it.
     - Close out your windows, open a command window and make sure you can run the commands `python` and `pip`
 
-## **MacOS** ![MacOS](img/apple_65.png)
+## **MacOS** ![MacOS]
 MacOS comes with a native version of Python. As of this writing, it comes with a version of Python2, which has been deprecated. In order to use most modern Python applications, you need to install Python3. Python2 and Python3 can coexist on the same machine without problems, and for MacOS it is in fact necessary for this to happen, since MacOS continues to rely on Python2 for some functionality.
 
 There are a couple of ways we can install Python3 on your MacOS operating system:
@@ -109,7 +109,7 @@ There are a couple of ways we can install Python3 on your MacOS operating system
 4. Once Python is installed, you should be able to open your **Terminal** application, type `python3`, hit ENTER, and see a Python 3.X.X prompt opened. Type `quit()` to exit it. You should also be able to run the command `pip3` and see its options. If both of these work, then you are ready to go.
   - Here are some additional resources on [Installing Python 3 on Mac OS X](https://docs.python-guide.org/starting/install3/osx/)
 
-## **Linux** ![Linux](img/linux_65.png)
+## **Linux** ![Linux]
 - **Raspberry Pi OS** may need Python and PIP
   - Install them: `sudo apt install -y python3-pip`
 - **Debian (Ubuntu)** distributions may need Python and PIP
@@ -118,6 +118,8 @@ There are a couple of ways we can install Python3 on your MacOS operating system
 - **RHEL (CentOS)** distributions usually need PIP
   - Install the EPEL package: `sudo yum install -y epel-release`
   - Install PIP: `sudo yum install -y python3-pip`
+
+    
 
 ## Credits
 
