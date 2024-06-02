@@ -8,7 +8,7 @@ def step_click_start_button(context):
     landing_page.click_start_button()
 
 @then('landing page is displayed containing header text "{expected_text}"')
-def step_assert_landing_page_pheader_text(context, expected_text):
+def step_assert_landing_page_header_text(context, expected_text):
     landing_page = LandingPage(context.driver)
     landing_page.assert_landing_page_header_text(expected_text)
 

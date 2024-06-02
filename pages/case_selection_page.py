@@ -1,79 +1,47 @@
-import logging
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from pages.base_page import BasePage
 
 
-class CaseSelectionPage:
+class CaseSelectionPage(BasePage):
+    HEADER_TEXT = (By.CSS_SELECTOR, '[data-role="page.name"] > strong')
+    INTRO_TEXT_LOCATOR = (By.CSS_SELECTOR, '[data-role="page.intro__text"]')
+    CASE_SELECTION_AREA = (By.CLASS_NAME, 'mod__body')
+    CASE_SELECTOR = (By.CLASS_NAME, 'imageCard')
+    CASE_ONE_SELECTOR = (By.XPATH, '//*[contains(text(), "Making a case against Kevin")]')
+    SCORE = (By.XPATH, '//*[contains(text(), "Your score so far:")]')
 
-    def __init__(self, driver):
-        self.driver = driver
-        self.header_text = (By.CSS_SELECTOR, '[data-role="page.name"] > strong')
-        self.intro_text_locator = (By.CSS_SELECTOR, '[data-role="page.intro__text"]')
-        self.case_selection_area = (By.CLASS_NAME, 'mod__body')
-        self.case_selector = (By.CLASS_NAME, 'imageCard')
-        self.case_one_selector = (By.XPATH, '//*[contains(text(), "Making a case against Kevin")]')
-        self.score = (By.XPATH, '//*[contains(text(), "Your score so far:")]')
+    def __init__(self, driver, timeout=10):
+        super().__init__(driver, timeout)
 
     def assert_case_selection_page_header_text(self, expected_text: str):
-        # Wait until the header element is visible on the page
-        header_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.header_text)
-        )
-        # Get the text from the header element
-        actual_text = header_element.text
-        assert expected_text == actual_text, (f'MINOR BUG: Header text assertion failed: Expected text "{expected_text}", '
-                                              f'but got "{actual_text}"')
-
-    def get_intro_text(self) -> str:
-        # Wait for intro text to be visible
-        intro_text = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(*self.intro_text_locator)
-        )
-        return intro_text.text
+        actual_text = self.get_element_text(self.HEADER_TEXT)
+        assert expected_text == actual_text, (
+            f'MINOR BUG: Header text assertion failed: Expected text "{expected_text}" '
+            f'but got "{actual_text}"')
 
     def assert_intro_text_visible(self):
-        try:
-            # Wait for intro text to be visible
-            WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(self.intro_text_locator)
-            )
-            logging.info("Case selection page intro text is visible.")
-        except TimeoutException:
-            raise AssertionError("MINOR BUG: Intro text is not visible on the page.")
+        assert self.is_element_visible(self.INTRO_TEXT_LOCATOR), f"MINOR BUG: Intro text is not visible on the page."
 
     def assert_case_selection_count(self, expected_count: int):
         # Wait until the case selection area becomes visible
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located(self.case_selection_area)
-        )
+        self.wait_for_element(self.CASE_SELECTION_AREA)
 
         # Find number of case selectors cards on page
-        case_selectors = self.driver.find_elements(*self.case_selector)
-
-        # Count the number of elements
+        case_selectors = self.find_elements(*self.CASE_SELECTOR)
         actual_count = len(case_selectors)
         assert actual_count == expected_count, f"MAJOR BUG: Expected {expected_count} selectable cases, but found {actual_count}."
 
     def assert_score(self, expected_score: str):
-        score_element = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located(self.score)
-        )
-        full_text = score_element.text
-
+        full_text = self.get_element_text(self.SCORE)
         # Extract the desired part of the text using slicing
         actual_score = full_text[18:len(full_text)]
-
-        assert actual_score == expected_score, (f"MAJOR BUG: Incorrect Score! Expected score to be {expected_score}, but "
-                                                f"score displayed on page is {actual_score}.")
+        assert actual_score == expected_score, (
+            f"MAJOR BUG: Incorrect Score! Expected score to be {expected_score}, but "
+            f"score displayed on page is {actual_score}.")
 
     def click_case_selector(self, number):
-        # Wait until the case selection area becomes visible
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located(self.case_selection_area)
-        )
-        case_selectors = self.driver.find_elements(*self.case_selector)
+        self.wait_for_element(self.CASE_SELECTION_AREA)
+        case_selectors = self.find_elements(*self.CASE_SELECTOR)
 
         # Check if there are any elements found
         if case_selectors:
@@ -83,11 +51,8 @@ class CaseSelectionPage:
             print("No cases found!!")
 
     def click_case_two_selector(self):
-        # Wait until the case selection area becomes visible
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located(self.case_selection_area)
-        )
-        case_selectors = self.driver.find_elements(*self.case_selector)
+        self.wait_for_element(self.CASE_SELECTION_AREA)
+        case_selectors = self.find_elements(*self.CASE_SELECTOR)
 
         # Check if there are any elements found
         if case_selectors:

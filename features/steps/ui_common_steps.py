@@ -7,6 +7,7 @@ def step_navigate_to_application(context):
     context.driver.maximize_window()
     context.driver.get(get_config()['TEST']['url'])
 
+
 @given('I navigate to the case selection page')
 def step_navigate_to_case_selection(context):
     context.driver.maximize_window()
